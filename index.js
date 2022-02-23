@@ -18,12 +18,16 @@ app.set('view engine', 'hbs') // начинаем его использоват�
 app.set('views', 'views') // указываем папку в которой хранятся html
 
 app.use(express.static('public'))
-app.use('/', homeRoutes)
-app.use('/', coursesRoutes)
-app.use('/', addRoutes)
 
+app.use(express.urlencoded({extended: true})) // для получения post запросов с формы
+
+app.use('/', homeRoutes) // регестрируем роуты
+app.use('/add', addRoutes)
+app.use('/courses', coursesRoutes)
+
+
+// Сервер ---------------------------------------------------------------------------
 const PORT = process.env.PORT || 3000
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`)
